@@ -1,21 +1,29 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { SLIDES } from "@/lib/products";
 
+const INTERVAL = 5000;
+
 export default function Slideshow() {
   const [current, setCurrent] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const next = useCallback(() => setCurrent((c) => (c + 1) % SLIDES.length), []);
   const prev = useCallback(() => setCurrent((c) => (c - 1 + SLIDES.length) % SLIDES.length), []);
 
-  const stopTimer = useCallback(() => clearInterval(slideTimer), []);
-  const startTimer = useCallback(() => { slideTimer = setInterval(next, slideInterval); }, [next]);
+  const stopTimer = useCallback(() => {
+    if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null; }
+  }, []);
+  const startTimer = useCallback(() => {
+    stopTimer();
+    timerRef.current = setInterval(next, INTERVAL);
+  }, [next, stopTimer]);
 
   useEffect(() => {
-    const t = setInterval(next, 5000);
-    return () => clearInterval(t);
-  }, [next]);
+    startTimer();
+    return stopTimer;
+  }, [startTimer, stopTimer]);
 
   const slide = SLIDES[current];
 

@@ -23,7 +23,7 @@ export default function CartDrawer() {
       />
       <div
         className={`fixed top-0 right-0 bottom-0 w-[400px] max-w-[92vw] bg-white z-50 shadow-2xl flex flex-col transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"}`}
-        inert={isOpen ? undefined : ""}
+        inert={!isOpen}
         role="dialog"
         aria-modal="true"
         aria-label="Shopping cart"

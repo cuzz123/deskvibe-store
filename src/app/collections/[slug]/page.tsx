@@ -8,12 +8,11 @@ export function generateStaticParams() {
   return CATEGORIES.map((c) => ({ slug: c.slug }));
 }
 
-export function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Metadata {
-  return params.then(({ slug }) => {
-    const cat = CATEGORIES.find((c) => c.slug === slug);
-    if (!cat) return { title: "Not Found" };
-    return { title: `${cat.name} — DeskVibe`, description: `Premium ${cat.name.toLowerCase()} for the modern workspace.` };
-  });
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const cat = CATEGORIES.find((c) => c.slug === slug);
+  if (!cat) return { title: "Not Found" };
+  return { title: `${cat.name} — DeskVibe`, description: `Premium ${cat.name.toLowerCase()} for the modern workspace.` };
 }
 
 export default async function CollectionPage({ params }: { params: Promise<{ slug: string }> }) {
