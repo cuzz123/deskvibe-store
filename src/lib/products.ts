@@ -155,14 +155,14 @@ export const SLIDES = [
 ];
 
 export const CATEGORIES = [
-  { name:"Monitor Stands", slug:"monitor-stands", color:"from-stone-800 to-stone-600", imageKey:"collection-protection" },
-  { name:"Cable Management", slug:"cable-management", color:"from-slate-600 to-slate-400", imageKey:"collection-love" },
-  { name:"Desk Mats", slug:"desk-mats", color:"from-blue-400 to-slate-400", imageKey:"collection-anxiety" },
-  { name:"Lighting", slug:"lighting", color:"from-amber-400 to-amber-200", imageKey:"collection-wealth" },
-  { name:"Comfort", slug:"comfort", color:"from-emerald-700 to-emerald-500", imageKey:"collection-protection" },
-  { name:"Tech", slug:"tech", color:"from-indigo-700 to-indigo-500", imageKey:"collection-love" },
-  { name:"Desk Organization", slug:"desk-organization", color:"from-rose-600 to-rose-400", imageKey:"collection-anxiety" },
-  { name:"Decor", slug:"decor", color:"from-teal-600 to-teal-400", imageKey:"collection-wealth" },
+  { name:"Monitor Stands", slug:"monitor-stands", imageKey:"collection-protection" },
+  { name:"Cable Management", slug:"cable-management", imageKey:"collection-love" },
+  { name:"Desk Mats", slug:"desk-mats", imageKey:"collection-anxiety" },
+  { name:"Lighting", slug:"lighting", imageKey:"collection-wealth" },
+  { name:"Comfort", slug:"comfort", imageKey:"collection-comfort" },
+  { name:"Tech", slug:"tech", imageKey:"collection-tech" },
+  { name:"Desk Organization", slug:"desk-organization", imageKey:"collection-organization" },
+  { name:"Decor", slug:"decor", imageKey:"collection-decor" },
 ];
 
 export const categoryMap: Record<string, string> = {
