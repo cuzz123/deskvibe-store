@@ -14,10 +14,10 @@ export default function Home() {
           <div className="text-center mb-10">
             <h2 className="text-2xl lg:text-3xl font-bold tracking-tight mb-2">Shop by Category</h2>
             <p className="text-stone-500 max-w-lg mx-auto">
-              Everything you need for a workspace that feels as good as it looks.
+              8 categories · 40 products · Everything your desk needs.
             </p>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
             {CATEGORIES.map((cat) => (
               <a key={cat.slug} href="#" className="relative group rounded-lg overflow-hidden aspect-[4/5] flex items-end">
                 <img

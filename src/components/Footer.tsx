@@ -23,7 +23,8 @@ export default function Footer() {
           <Link href="/collections/cable-management" className="block text-sm text-stone-500 hover:text-stone-900 py-1">Cable Management</Link>
           <Link href="/collections/desk-mats" className="block text-sm text-stone-500 hover:text-stone-900 py-1">Desk Mats</Link>
           <Link href="/collections/lighting" className="block text-sm text-stone-500 hover:text-stone-900 py-1">Lighting</Link>
-          <Link href="/products/desk-makeover-kit" className="block text-sm text-stone-500 hover:text-stone-900 py-1">Bundle</Link>
+          <Link href="/collections/comfort" className="block text-sm text-stone-500 hover:text-stone-900 py-1">Comfort</Link>
+          <Link href="/collections/tech" className="block text-sm text-stone-500 hover:text-stone-900 py-1">Tech</Link>
         </div>
         <div>
           <h4 className="text-xs uppercase tracking-[1.2px] text-stone-400 font-bold mb-3">Support</h4>

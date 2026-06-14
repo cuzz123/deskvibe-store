@@ -27,12 +27,14 @@ export default function Header() {
           DeskVibe
         </Link>
 
-        <nav className="hidden md:flex gap-8 text-sm font-medium text-stone-500" aria-label="Main navigation">
+        <nav className="hidden md:flex gap-6 text-sm font-medium text-stone-500" aria-label="Main navigation">
           <Link href="/collections/monitor-stands" className="hover:text-stone-900 transition-colors">Monitor Stands</Link>
-          <Link href="/collections/cable-management" className="hover:text-stone-900 transition-colors">Cable Management</Link>
-          <Link href="/collections/desk-mats" className="hover:text-stone-900 transition-colors">Desk Mats</Link>
+          <Link href="/collections/cable-management" className="hover:text-stone-900 transition-colors">Cable</Link>
+          <Link href="/collections/desk-mats" className="hover:text-stone-900 transition-colors">Mats</Link>
           <Link href="/collections/lighting" className="hover:text-stone-900 transition-colors">Lighting</Link>
-          <Link href="/products/desk-makeover-kit" className="hover:text-stone-900 transition-colors">Bundle</Link>
+          <Link href="/collections/comfort" className="hover:text-stone-900 transition-colors">Comfort</Link>
+          <Link href="/collections/tech" className="hover:text-stone-900 transition-colors">Tech</Link>
+          <Link href="/products/ultimate-home-office-bundle" className="hover:text-stone-900 transition-colors">Bundle</Link>
         </nav>
 
         <button onClick={openCart} className="relative p-2 text-stone-700 hover:text-stone-900" aria-label={`Shopping cart, ${itemCount()} items`}>
