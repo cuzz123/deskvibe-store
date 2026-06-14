@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { PRODUCTS, CATEGORIES } from "@/lib/products";
+import { PRODUCTS, CATEGORIES, categoryMap } from "@/lib/products";
 import ProductCard from "@/components/ProductCard";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -20,12 +20,6 @@ export default async function CollectionPage({ params }: { params: Promise<{ slu
   const cat = CATEGORIES.find((c) => c.slug === slug);
   if (!cat) notFound();
 
-  const categoryMap: Record<string, string> = {
-    "monitor-stands": "Monitor Stand",
-    "cable-management": "Cable Management",
-    "desk-mats": "Desk Mat",
-    lighting: "Lighting",
-  };
   const targetCategory = categoryMap[slug] || cat.name;
   const filtered = PRODUCTS.filter((p) => p.category === targetCategory);
 
