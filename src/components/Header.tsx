@@ -9,7 +9,7 @@ export default function Header() {
   const openCart = useCartUIStore((s) => s.openCart);
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-stone-200">
+    <header className="sticky top-0 z-50 bg-white border-b border-stone-200">
       <div className="bg-stone-900 text-stone-300 text-center text-xs tracking-wide py-2.5">
         Free Shipping Over $75 · 30-Day Trial ·{" "}
         <Link href="/products/desk-makeover-kit" className="text-stone-100 underline underline-offset-2">
