@@ -46,9 +46,10 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link href="/search" className="hidden md:flex p-2 text-stone-700 hover:text-stone-900" aria-label="Search"><Search className="w-5 h-5" /></Link>
-          <Link href="/wishlist" className="hidden md:flex p-2 text-stone-700 hover:text-stone-900" aria-label="Wishlist"><Heart className="w-5 h-5" /></Link>
-          <Link href="/account" className="hidden md:flex p-2 text-stone-700 hover:text-stone-900" aria-label="Account"><User className="w-5 h-5" /></Link>
+          <Link href="/search" className="hidden md:flex p-2 text-stone-500 hover:text-stone-900" aria-label="Search"><Search className="w-5 h-5" /></Link>
+          <Link href="/wishlist" className="hidden md:flex p-2 text-stone-500 hover:text-stone-900" aria-label="Wishlist"><Heart className="w-5 h-5" /></Link>
+          <Link href="/auth/signin" className="hidden md:inline-flex text-sm font-medium text-stone-600 hover:text-stone-900 mr-1">Sign In</Link>
+          <Link href="/auth/register" className="hidden md:inline-flex text-sm font-medium bg-stone-900 text-white px-4 py-2 rounded-full hover:bg-stone-800 transition">Register</Link>
           <button onClick={openCart} className="relative p-2 text-stone-700 hover:text-stone-900" aria-label={`Shopping cart, ${itemCount()} items`}>
             <ShoppingCart className="w-5 h-5" />
             {itemCount() > 0 && (
@@ -68,8 +69,11 @@ export default function Header() {
               {l.label}
             </Link>
           ))}
-          <Link href="/account" onClick={() => setMobileOpen(false)} className="py-3 text-sm font-medium text-stone-600 hover:text-stone-900">
-            Account
+          <Link href="/auth/signin" onClick={() => setMobileOpen(false)} className="py-3 text-sm font-medium text-stone-600 hover:text-stone-900 border-b border-stone-100">
+            Sign In
+          </Link>
+          <Link href="/auth/register" onClick={() => setMobileOpen(false)} className="py-3 text-sm font-medium text-white bg-stone-900 text-center rounded-lg mt-2 px-4">
+            Register
           </Link>
         </nav>
       )}
