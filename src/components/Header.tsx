@@ -1,7 +1,7 @@
 "use client";
 
 import { useCartStore, useCartUIStore } from "@/lib/cart";
-import { ShoppingCart, Menu, X, User, Search, Heart } from "lucide-react";
+import { ShoppingCart, Menu, X, Search, Heart } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
