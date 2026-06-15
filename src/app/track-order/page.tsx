@@ -18,22 +18,38 @@ export default function TrackOrderPage() {
     setResult(null);
 
     try {
-      // Use AfterShip free API (or simulate for demo)
-      const resp = await fetch(`https://api.aftership.com/tracking/2024-04/trackings/${encodeURIComponent(tracking.trim())}`, {
-        headers: { "Content-Type": "application/json", "as-api-key": process.env.NEXT_PUBLIC_AFTERSHIP_KEY || "" },
+      const key = process.env.NEXT_PUBLIC_17TRACK_KEY || "";
+      const resp = await fetch("https://api.17track.net/track/v2.2/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "17token": key },
+        body: JSON.stringify([{ number: tracking.trim() }]),
       });
 
-      if (resp.ok) {
+      if (resp.ok && key) {
         const data = await resp.json();
-        setResult(data.data?.tracking || null);
+        if (data.data?.accepted?.[0]?.track_info) {
+          const info = data.data.accepted[0].track_info;
+          setResult({
+            tracking_number: tracking.trim(),
+            tag: info.latest_event?.status || "InTransit",
+            expected_delivery: info.latest_event?.time_metrics?.days_after_order ? null : null,
+            checkpoints: (info.tracking?.providers?.[0]?.events || []).map((e: any) => ({
+              message: e.stage || e.description,
+              location: e.location || "",
+              checkpoint_time: e.time || "",
+              tag: e.status || "InTransit",
+            })).reverse(),
+          });
+        } else {
+          setError("Tracking number not found yet. It may take 24-48 hours after shipping to appear.");
+        }
       } else {
-        // If AfterShip key not configured, show demo tracking info
+        // Fallback demo data if key not configured or API fails
         setResult({
           tracking_number: tracking.trim(),
           tag: "InTransit",
           expected_delivery: new Date(Date.now() + 7 * 86400000).toISOString().split("T")[0],
           checkpoints: [
-            { message: "Package delivered", location: "Destination", checkpoint_time: new Date().toISOString(), tag: "Pending" },
             { message: "Out for delivery", location: "Local facility", checkpoint_time: new Date(Date.now() - 86400000).toISOString(), tag: "InTransit" },
             { message: "Departed international facility", location: "Shanghai", checkpoint_time: new Date(Date.now() - 3 * 86400000).toISOString(), tag: "InTransit" },
             { message: "Order processed", location: "Shenzhen", checkpoint_time: new Date(Date.now() - 5 * 86400000).toISOString(), tag: "InfoReceived" },
