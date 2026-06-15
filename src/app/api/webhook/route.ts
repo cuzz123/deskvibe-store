@@ -1,35 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const STRIPE_SECRET = process.env.STRIPE_SECRET_KEY;
-const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET;
-
+// PayPal webhook handler — sends order confirmation emails via Resend
 export async function POST(request: NextRequest) {
-  if (!STRIPE_SECRET || !STRIPE_WEBHOOK_SECRET) {
-    return NextResponse.json({ error: "Not configured" }, { status: 500 });
-  }
-
-  const body = await request.text();
-  const signature = request.headers.get("stripe-signature") || "";
-
   try {
-    const { default: Stripe } = await import("stripe");
-    const stripe = new Stripe(STRIPE_SECRET, { apiVersion: "2025-06-16" as any });
-    const event = stripe.webhooks.constructEvent(body, signature, STRIPE_WEBHOOK_SECRET);
+    const body = await request.json();
 
-    if (event.type === "checkout.session.completed") {
-      const session = event.data.object;
-      const customerEmail = session.customer_details?.email;
+    // Handle PayPal CHECKOUT.ORDER.APPROVED event
+    if (body.event_type === "CHECKOUT.ORDER.APPROVED" || body.event_type === "PAYMENT.CAPTURE.COMPLETED") {
+      const resource = body.resource || {};
+      const payer = resource.payer || body.resource?.purchase_units?.[0]?.payee;
+      const email = payer?.email_address || resource.payer?.email_address;
+      const orderId = resource.id || body.resource?.id || "unknown";
+      const amount = resource.purchase_units?.[0]?.amount?.value || resource.amount?.value || "0";
+      const items = resource.purchase_units?.[0]?.items?.length || 1;
 
-      // Send order confirmation email via Resend
-      if (customerEmail) {
-        await sendOrderConfirmation(customerEmail, {
-          id: session.id,
-          amount: (session.amount_total || 0) / 100,
-          items: session.metadata?.item_count || "0",
-        });
+      if (email) {
+        await sendOrderConfirmation(email, { id: orderId, amount: parseFloat(amount), items: String(items) });
       }
-
-      console.log(`✅ Order completed: ${session.id} | ${customerEmail} | $${(session.amount_total || 0) / 100}`);
     }
 
     return NextResponse.json({ received: true });
@@ -41,34 +28,32 @@ export async function POST(request: NextRequest) {
 
 async function sendOrderConfirmation(email: string, order: { id: string; amount: number; items: string }) {
   const RESEND_KEY = process.env.RESEND_API_KEY;
-  if (!RESEND_KEY) {
-    console.warn("RESEND_API_KEY not set — skipping email");
-    return;
-  }
+  if (!RESEND_KEY) { console.warn("RESEND_API_KEY not set"); return; }
 
   try {
-    const { Resend } = await import("resend");
-    const resend = new Resend(RESEND_KEY);
-    await resend.emails.send({
-      from: "DeskVibe <orders@deskvibe.com>",
-      to: email,
-      subject: `Order Confirmed — #${order.id.slice(-8).toUpperCase()}`,
-      html: `
-        <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px">
-          <h2 style="color:#1c1917">Thank you for your order! 🎉</h2>
-          <p>Your order <strong>#${order.id.slice(-8).toUpperCase()}</strong> has been confirmed.</p>
+    const resp = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${RESEND_KEY}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        from: "DeskVibe <onboarding@resend.dev>",
+        to: email,
+        subject: `Order Confirmed — DeskVibe`,
+        html: `<div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px">
+          <h2 style="color:#1c1917">Thank you for your order!</h2>
+          <p>Your order has been confirmed. We're preparing your desk upgrade.</p>
           <div style="background:#f5f5f4;border-radius:8px;padding:16px;margin:16px 0">
-            <p style="margin:0"><strong>Total:</strong> $${order.amount.toFixed(2)}</p>
-            <p style="margin:4px 0 0"><strong>Items:</strong> ${order.items} item(s)</p>
+            <p style="margin:0"><strong>Order:</strong> #${order.id.slice(-8).toUpperCase()}</p>
+            <p style="margin:4px 0 0"><strong>Total:</strong> $${order.amount.toFixed(2)}</p>
+            <p style="margin:4px 0 0"><strong>Items:</strong> ${order.items}</p>
           </div>
-          <p style="color:#78716c;font-size:14px">We'll send you tracking info once your order ships (7-12 business days).</p>
-          <p style="color:#78716c;font-size:14px">Questions? Reply to this email or contact support@deskvibe.com</p>
+          <p style="color:#78716c;font-size:14px">Shipping in 7-12 business days. Tracking info will follow.</p>
+          <p style="color:#78716c;font-size:14px">Questions? Reply to this email.</p>
           <hr style="border:none;border-top:1px solid #e7e5e4;margin:24px 0">
           <p style="color:#a8a29e;font-size:12px">DeskVibe — Premium Desk Accessories</p>
-        </div>
-      `,
+        </div>`,
+      }),
     });
-    console.log(`📧 Confirmation email sent to ${email}`);
+    console.log(`📧 Confirmation sent to ${email}:`, resp.status);
   } catch (e: any) {
     console.error("Resend error:", e.message);
   }
