@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
 import { OrganizationJsonLd } from "@/components/ui/JsonLd";
+import { Analytics } from "@/components/layout/Analytics";
 
 const figtree = Figtree({ subsets: ["latin"], variable: "--font-figtree" });
 
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-full flex flex-col font-sans bg-white text-stone-900">
         <Providers>
           <OrganizationJsonLd />
+          <Analytics />
           <Header />
           <CartDrawer />
           <main className="flex-1">{children}</main>

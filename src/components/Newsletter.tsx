@@ -19,7 +19,7 @@ export default function Newsletter() {
             />
             <button
               type="submit"
-              className="px-8 py-3.5 rounded-full bg-white text-stone-900 font-bold hover:bg-emerald-500 hover:text-white transition whitespace-nowrap"
+              className="px-8 py-3.5 rounded-full bg-white text-stone-900 font-bold hover:bg-indigo-600 hover:text-white transition whitespace-nowrap"
             >
               Subscribe & Save
             </button>
