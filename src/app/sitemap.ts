@@ -1,8 +1,10 @@
 import { MetadataRoute } from "next";
 import { PRODUCTS, CATEGORIES } from "@/lib/products";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://zenstone-store-weld.vercel.app";
+  const baseUrl = "https://zenstone-store-weld.vercel.app";
 
   const staticPages = [
     "", "/checkout", "/checkout/success", "/faq", "/about", "/contact", "/blog",
