@@ -1,12 +1,24 @@
 "use client";
 
 import { useCartStore, useCartUIStore } from "@/lib/cart";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Menu, X } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
+
+const LINKS = [
+  { href: "/collections/monitor-stands", label: "Monitor Stands" },
+  { href: "/collections/cable-management", label: "Cable" },
+  { href: "/collections/desk-mats", label: "Mats" },
+  { href: "/collections/lighting", label: "Lighting" },
+  { href: "/collections/comfort", label: "Comfort" },
+  { href: "/collections/tech", label: "Tech" },
+  { href: "/products/ultimate-home-office-bundle", label: "Bundle" },
+];
 
 export default function Header() {
   const itemCount = useCartStore((s) => s.itemCount);
   const openCart = useCartUIStore((s) => s.openCart);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-stone-200">
@@ -28,24 +40,33 @@ export default function Header() {
         </Link>
 
         <nav className="hidden md:flex gap-6 text-sm font-medium text-stone-500" aria-label="Main navigation">
-          <Link href="/collections/monitor-stands" className="hover:text-stone-900 transition-colors">Monitor Stands</Link>
-          <Link href="/collections/cable-management" className="hover:text-stone-900 transition-colors">Cable</Link>
-          <Link href="/collections/desk-mats" className="hover:text-stone-900 transition-colors">Mats</Link>
-          <Link href="/collections/lighting" className="hover:text-stone-900 transition-colors">Lighting</Link>
-          <Link href="/collections/comfort" className="hover:text-stone-900 transition-colors">Comfort</Link>
-          <Link href="/collections/tech" className="hover:text-stone-900 transition-colors">Tech</Link>
-          <Link href="/products/ultimate-home-office-bundle" className="hover:text-stone-900 transition-colors">Bundle</Link>
+          {LINKS.map((l) => (
+            <Link key={l.href} href={l.href} className="hover:text-stone-900 transition-colors">{l.label}</Link>
+          ))}
         </nav>
 
-        <button onClick={openCart} className="relative p-2 text-stone-700 hover:text-stone-900" aria-label={`Shopping cart, ${itemCount()} items`}>
-          <ShoppingCart className="w-5 h-5" />
-          {itemCount() > 0 && (
-            <span className="absolute -top-0.5 -right-1 bg-stone-900 text-white text-[10px] font-bold min-w-[18px] h-[18px] rounded-full flex items-center justify-center px-1">
-              {itemCount()}
-            </span>
-          )}
-        </button>
+        <div className="flex items-center gap-2">
+          <button onClick={openCart} className="relative p-2 text-stone-700 hover:text-stone-900" aria-label={`Shopping cart, ${itemCount()} items`}>
+            <ShoppingCart className="w-5 h-5" />
+            {itemCount() > 0 && (
+              <span className="absolute -top-0.5 -right-1 bg-stone-900 text-white text-[10px] font-bold min-w-[18px] h-[18px] rounded-full flex items-center justify-center px-1">{itemCount()}</span>
+            )}
+          </button>
+          <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden p-2 text-stone-700" aria-label="Toggle menu">
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
+
+      {mobileOpen && (
+        <nav className="md:hidden border-t border-stone-200 bg-white px-6 py-2 flex flex-col">
+          {LINKS.map((l) => (
+            <Link key={l.href} href={l.href} onClick={() => setMobileOpen(false)} className="py-3 text-sm font-medium text-stone-600 hover:text-stone-900 border-b border-stone-100 last:border-0">
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+      )}
     </header>
   );
 }

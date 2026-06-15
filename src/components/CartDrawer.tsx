@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import { useCartStore, useCartUIStore } from "@/lib/cart";
 import { formatPrice } from "@/lib/utils";
-import { Minus, Plus, X, ShoppingBag } from "lucide-react";
+import { Minus, Plus, X, ShoppingBag, Mail } from "lucide-react";
 import Link from "next/link";
 
 export default function CartDrawer() {
@@ -14,12 +15,39 @@ export default function CartDrawer() {
   const updateQuantity = useCartStore((s) => s.updateQuantity);
   const subtotal = useCartStore((s) => s.subtotal);
   const itemCount = useCartStore((s) => s.itemCount);
+  const [showSave, setShowSave] = useState(false);
+  const [saveEmail, setSaveEmail] = useState("");
+  const [saved, setSaved] = useState(false);
+
+  function handleClose() {
+    if (items.length > 0 && !saved) {
+      setShowSave(true);
+    } else {
+      closeCart();
+      setShowSave(false);
+    }
+  }
+
+  async function handleSave() {
+    if (!saveEmail) return;
+    await fetch("/api/save-cart", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: saveEmail,
+        items: items.map((i) => ({ name: i.product.name, price: i.product.price, qty: i.quantity, slug: i.product.slug })),
+      }),
+    });
+    setSaved(true);
+    setShowSave(false);
+    setTimeout(() => { closeCart(); setSaved(false); }, 1000);
+  }
 
   return (
     <>
       <div
         className={`fixed inset-0 bg-black/35 z-50 transition-opacity ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
-        onClick={closeCart}
+        onClick={handleClose}
       />
       <div
         className={`fixed top-0 right-0 bottom-0 w-[400px] max-w-[92vw] bg-white z-50 shadow-2xl flex flex-col transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"}`}
@@ -30,7 +58,7 @@ export default function CartDrawer() {
       >
         <div className="flex items-center justify-between px-5 py-4 border-b border-stone-200">
           <h3 className="font-bold text-lg">Cart ({itemCount()})</h3>
-          <button onClick={closeCart} className="text-stone-400 hover:text-stone-900" aria-label="Close cart"><X className="w-5 h-5" /></button>
+          <button onClick={handleClose} className="text-stone-400 hover:text-stone-900" aria-label="Close cart"><X className="w-5 h-5" /></button>
         </div>
 
         <div className="flex-1 overflow-y-auto px-5 py-3">
@@ -61,6 +89,23 @@ export default function CartDrawer() {
               </div>
             ))
           )}
+
+          {/* Save Cart */}
+          {showSave && !saved && (
+            <div className="px-4 py-3 bg-indigo-50 border-t border-indigo-100 mt-2">
+              <p className="text-sm font-semibold text-indigo-800 mb-1">Save your cart?</p>
+              <p className="text-xs text-indigo-600 mb-3">We&apos;ll email you a link to pick up where you left off.</p>
+              <div className="flex gap-2">
+                <input type="email" value={saveEmail} onChange={(e) => setSaveEmail(e.target.value)} placeholder="your@email.com" className="flex-1 px-3 py-2 rounded-lg border border-indigo-200 text-sm outline-none focus:border-indigo-500" />
+                <button onClick={handleSave} className="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-semibold hover:bg-indigo-700 transition flex items-center gap-1.5"><Mail className="w-3.5 h-3.5" />Send</button>
+              </div>
+              <button onClick={() => { closeCart(); setShowSave(false); }} className="text-xs text-indigo-400 mt-2 hover:underline">No thanks</button>
+            </div>
+          )}
+          {saved && (
+            <div className="px-4 py-3 bg-emerald-50 border-t border-emerald-100 mt-2 text-center text-sm text-emerald-700 font-semibold">Check your inbox!</div>
+          )}
+
         </div>
 
         {items.length > 0 && (

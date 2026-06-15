@@ -31,6 +31,7 @@ export default function Footer() {
           <Link href="/contact" className="block text-sm text-stone-500 hover:text-stone-900 py-1">Contact Us</Link>
           <Link href="/faq" className="block text-sm text-stone-500 hover:text-stone-900 py-1">FAQ</Link>
           <Link href="/faq" className="block text-sm text-stone-500 hover:text-stone-900 py-1">Shipping Policy</Link>
+          <Link href="/track-order" className="block text-sm text-stone-500 hover:text-stone-900 py-1">Track Order</Link>
           <Link href="/faq" className="block text-sm text-stone-500 hover:text-stone-900 py-1">Returns & Refunds</Link>
         </div>
         <div>
