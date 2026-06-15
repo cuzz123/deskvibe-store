@@ -1,7 +1,7 @@
 "use client";
 
 import { useCartStore, useCartUIStore } from "@/lib/cart";
-import { ShoppingCart, Menu, X, User } from "lucide-react";
+import { ShoppingCart, Menu, X, User, Search, Heart } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -46,9 +46,9 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link href="/account" className="hidden md:flex p-2 text-stone-700 hover:text-stone-900" aria-label="Account">
-            <User className="w-5 h-5" />
-          </Link>
+          <Link href="/search" className="hidden md:flex p-2 text-stone-700 hover:text-stone-900" aria-label="Search"><Search className="w-5 h-5" /></Link>
+          <Link href="/wishlist" className="hidden md:flex p-2 text-stone-700 hover:text-stone-900" aria-label="Wishlist"><Heart className="w-5 h-5" /></Link>
+          <Link href="/account" className="hidden md:flex p-2 text-stone-700 hover:text-stone-900" aria-label="Account"><User className="w-5 h-5" /></Link>
           <button onClick={openCart} className="relative p-2 text-stone-700 hover:text-stone-900" aria-label={`Shopping cart, ${itemCount()} items`}>
             <ShoppingCart className="w-5 h-5" />
             {itemCount() > 0 && (
