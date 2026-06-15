@@ -45,28 +45,20 @@ export default function CheckoutPage() {
   async function handleCheckout() {
     setLoading(true);
     setError("");
-
     try {
       const cartItems = items.map((i) => ({ name: i.product.name, price: i.product.price, quantity: i.quantity }));
-      const resp = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items: cartItems }),
-      });
+      const ctrl = new AbortController();
+      const t = setTimeout(() => ctrl.abort(), 8000);
+      const resp = await fetch("/api/checkout", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ items: cartItems }), signal: ctrl.signal });
+      clearTimeout(t);
       const data = await resp.json();
-
-      if (data.url) {
-        clearCart();
-        window.location.href = data.url;
-      } else if (data.orderID) {
-        // PayPal Standard redirect
-        clearCart();
-        setPaid(true);
-      }
+      if (data.error) { setError(data.error); return; }
+      if (data.url) { clearCart(); window.location.href = data.url; return; }
+      if (data.orderID) { clearCart(); setPaid(true); return; }
+      setError("No response from payment server. Try manual payment below.");
     } catch (e: any) {
-      setError(e.message || "Payment failed. Please try again.");
-    }
-    setLoading(false);
+      setError(e.name === "AbortError" ? "Connection timed out. Use manual payment below." : "Payment unavailable. Use manual payment below.");
+    } finally { setLoading(false); }
   }
 
   return (
