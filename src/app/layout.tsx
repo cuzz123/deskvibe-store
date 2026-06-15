@@ -25,6 +25,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${figtree.variable} h-full antialiased`}>
+      <head>
+        <meta name="google-site-verification" content="uBe2lk1CCRJxdUU4b1HoJkR9KbnKodSifkNbU1XtLgs" />
+      </head>
       <body className="min-h-full flex flex-col font-sans bg-white text-stone-900">
         <Providers>
           <OrganizationJsonLd />
