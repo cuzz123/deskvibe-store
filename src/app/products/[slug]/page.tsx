@@ -5,6 +5,7 @@ import { StarRating } from "@/components/ui/StarRating";
 import { ProductActions } from "@/components/product/ProductActions";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export function generateStaticParams() {
   return PRODUCTS.map((p) => ({ slug: p.slug }));
@@ -73,8 +74,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       {/* Product Detail */}
       <div className="max-w-7xl mx-auto px-6 py-8 grid grid-cols-1 lg:grid-cols-2 gap-10">
         {/* Gallery */}
-        <div className="aspect-square rounded-xl overflow-hidden bg-stone-100">
-          <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" />
+        <div className="aspect-square rounded-xl overflow-hidden bg-stone-100 relative">
+          <Image src={product.imageUrl} alt={product.name} fill sizes="(max-width:1024px) 100vw, 50vw" className="object-cover" priority />
         </div>
 
         {/* Info */}
@@ -122,8 +123,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {PRODUCTS.filter((p) => p.id !== product.id).slice(0, 4).map((p) => (
             <Link key={p.id} href={`/products/${p.slug}`} className="group">
-              <div className="aspect-square rounded-lg overflow-hidden bg-stone-100 mb-2">
-                <img src={p.imageUrl} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div className="aspect-square rounded-lg overflow-hidden bg-stone-100 mb-2 relative">
+                <Image src={p.imageUrl} alt={p.name} fill sizes="(max-width:640px) 50vw, 25vw" className="object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
               </div>
               <h4 className="text-sm font-semibold">{p.name}</h4>
               <p className="text-sm font-bold">${p.price}</p>

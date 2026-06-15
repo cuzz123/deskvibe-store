@@ -87,7 +87,7 @@ export default function Home() {
             <p className="text-stone-500">Premium materials · Minimal design · Built to last</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {PRODUCTS.slice(0, 12).map((p) => (
+            {PRODUCTS.slice(0, 8).map((p) => (
               <ProductCard key={p.id} product={p} />
             ))}
           </div>
