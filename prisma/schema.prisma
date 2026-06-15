@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String
+  role      String   @default("USER") // USER | ADMIN
+  createdAt DateTime @default(now())
+  orders    Order[]
+}
+
+model Product {
+  id          Int      @id
+  name        String
+  slug        String   @unique
+  category    String
+  description String
+  price       Float
+  compareAt   Float?
+  rating      Float    @default(4.5)
+  reviews     Int      @default(0)
+  badge       String?
+  badgeClass  String   @default("")
+  imagePrompt String   @default("")
+  imageUrl    String
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  orderItems  OrderItem[]
+}
+
+model Order {
+  id         String      @id @default(cuid())
+  userId     String
+  user       User        @relation(fields: [userId], references: [id])
+  total      Float
+  status     String      @default("PENDING") // PENDING | PAID | SHIPPED | DELIVERED | CANCELLED
+  trackingNumber String?
+  email      String?
+  items      OrderItem[]
+  createdAt  DateTime    @default(now())
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Float
+}
+
+model Discount {
+  id        String   @id @default(cuid())
+  code      String   @unique
+  type      String   // PERCENTAGE | FIXED
+  value     Float
+  minAmount Float?
+  expiresAt DateTime?
+  usageLeft Int      @default(-1) // -1 = unlimited
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
