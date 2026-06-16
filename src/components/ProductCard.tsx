@@ -33,6 +33,7 @@ export default function ProductCard({ product }: { product: Product }) {
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           className="object-cover transition-transform duration-500 group-hover:scale-105"
+          onError={(e) => { (e.target as HTMLElement).style.display = "none"; }}
         />
         {product.badge && (
           <span className={`absolute top-3 left-3 z-10 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded ${product.badgeClass}`}>

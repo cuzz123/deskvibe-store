@@ -13,7 +13,7 @@ async function ping() {
     try {
       const resp = await fetch(url);
       console.log(`${url.slice(0, 30)}... → ${resp.status}`);
-    } catch (e: any) {
+    } catch (e) {
       console.error(`${url}: ${e.message}`);
     }
   }
