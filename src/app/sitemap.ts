@@ -8,6 +8,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const staticPages = [
     "", "/checkout", "/checkout/success", "/faq", "/about", "/contact", "/blog",
+    "/privacy", "/terms", "/shipping", "/refund", "/track-order",
+    "/auth/signin", "/auth/register", "/search", "/wishlist",
   ].map((path) => ({
     url: `${baseUrl}${path}`,
     lastModified: new Date(),

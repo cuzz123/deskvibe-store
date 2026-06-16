@@ -30,8 +30,11 @@ export default function Footer() {
           <h4 className="text-xs uppercase tracking-[1.2px] text-stone-400 font-bold mb-3">Support</h4>
           <Link href="/contact" className="block text-sm text-stone-500 hover:text-stone-900 py-1">Contact Us</Link>
           <Link href="/faq" className="block text-sm text-stone-500 hover:text-stone-900 py-1">FAQ</Link>
-          <Link href="/faq" className="block text-sm text-stone-500 hover:text-stone-900 py-1">Shipping Policy</Link>
+          <Link href="/shipping" className="block text-sm text-stone-500 hover:text-stone-900 py-1">Shipping Policy</Link>
+          <Link href="/refund" className="block text-sm text-stone-500 hover:text-stone-900 py-1">Returns & Refunds</Link>
           <Link href="/track-order" className="block text-sm text-stone-500 hover:text-stone-900 py-1">Track Order</Link>
+          <Link href="/terms" className="block text-sm text-stone-500 hover:text-stone-900 py-1">Terms of Service</Link>
+          <Link href="/privacy" className="block text-sm text-stone-500 hover:text-stone-900 py-1">Privacy Policy</Link>
           <Link href="/faq" className="block text-sm text-stone-500 hover:text-stone-900 py-1">Returns & Refunds</Link>
         </div>
         <div>
