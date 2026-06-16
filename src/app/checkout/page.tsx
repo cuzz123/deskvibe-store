@@ -1,24 +1,20 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
 import { useCartStore } from "@/lib/cart";
 import { formatPrice } from "@/lib/utils";
 import Link from "next/link";
-import { ShoppingBag, ArrowLeft, Loader2 } from "lucide-react";
+import Image from "next/image";
+import { ShoppingBag, ArrowLeft } from "lucide-react";
 
 export default function CheckoutPage() {
   const items = useCartStore((s) => s.items);
   const subtotal = useCartStore((s) => s.subtotal);
   const clearCart = useCartStore((s) => s.clearCart);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [paid, setPaid] = useState(false);
 
   const shipping = subtotal() >= 75 ? 0 : 9.99;
   const total = subtotal() + shipping;
 
-  if (items.length === 0 && !paid) {
+  if (items.length === 0) {
     return (
       <div className="max-w-lg mx-auto px-6 py-20 text-center">
         <ShoppingBag className="w-12 h-12 mx-auto text-stone-300 mb-4" />
@@ -27,38 +23,6 @@ export default function CheckoutPage() {
         <Link href="/" className="inline-flex items-center gap-2 text-indigo-600 font-semibold hover:underline"><ArrowLeft className="w-4 h-4" /> Continue Shopping</Link>
       </div>
     );
-  }
-
-  if (paid) {
-    return (
-      <div className="max-w-lg mx-auto px-6 py-20 text-center">
-        <div className="w-16 h-16 mx-auto bg-emerald-100 rounded-full flex items-center justify-center mb-4">
-          <svg className="w-8 h-8 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
-        </div>
-        <h1 className="text-2xl font-bold mb-2">Order Submitted!</h1>
-        <p className="text-stone-500 mb-6">We&apos;ll send a payment link to your email. Or pay directly via PayPal to <strong>1709658792@qq.com</strong>.</p>
-        <Link href="/" className="inline-flex items-center gap-2 bg-stone-900 text-white px-6 py-3 rounded-full font-semibold hover:bg-stone-800 transition">Continue Shopping</Link>
-      </div>
-    );
-  }
-
-  async function handleCheckout() {
-    setLoading(true);
-    setError("");
-    try {
-      const cartItems = items.map((i) => ({ name: i.product.name, price: i.product.price, quantity: i.quantity }));
-      const ctrl = new AbortController();
-      const t = setTimeout(() => ctrl.abort(), 8000);
-      const resp = await fetch("/api/checkout", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ items: cartItems }), signal: ctrl.signal });
-      clearTimeout(t);
-      const data = await resp.json();
-      if (data.error) { setError(data.error); return; }
-      if (data.url) { clearCart(); window.location.href = data.url; return; }
-      if (data.orderID) { clearCart(); setPaid(true); return; }
-      setError("No response from payment server. Try manual payment below.");
-    } catch (e: any) {
-      setError(e.name === "AbortError" ? "Connection timed out. Use manual payment below." : "Payment unavailable. Use manual payment below.");
-    } finally { setLoading(false); }
   }
 
   return (
@@ -80,24 +44,34 @@ export default function CheckoutPage() {
         ))}
       </div>
 
-      <div className="border-t border-stone-200 pt-6 space-y-2 mb-6">
+      <div className="border-t border-stone-200 pt-6 space-y-2 mb-8">
         <div className="flex justify-between text-sm"><span>Subtotal</span><span>{formatPrice(subtotal())}</span></div>
         <div className="flex justify-between text-sm text-stone-500"><span>Shipping</span><span>{shipping === 0 ? "Free" : formatPrice(shipping)}</span></div>
         <div className="flex justify-between font-bold text-lg pt-2 border-t border-stone-200"><span>Total</span><span>{formatPrice(total)}</span></div>
       </div>
 
-      {error && <p className="text-sm text-red-600 text-center mb-4 bg-red-50 py-2 px-4 rounded-lg">{error}</p>}
+      {/* PayPal Manual Payment */}
+      <div className="bg-indigo-50 border border-indigo-200 rounded-2xl p-6 mb-4">
+        <h2 className="font-bold text-lg text-indigo-900 mb-2">Pay with PayPal</h2>
+        <ol className="text-sm text-indigo-800 space-y-2 mb-4">
+          <li>1. Open your PayPal app or paypal.com</li>
+          <li>2. Send <strong>${total.toFixed(2)} USD</strong> to:</li>
+        </ol>
+        <div className="bg-white rounded-xl p-4 text-center mb-4 border border-indigo-100">
+          <p className="text-xs text-stone-400 mb-1">PayPal Email</p>
+          <p className="text-xl font-bold text-stone-900 select-all">1709658792@qq.com</p>
+        </div>
+        <ol className="text-sm text-indigo-800 space-y-2" start={3}>
+          <li>3. In the payment note, write your order details (product names and quantities)</li>
+          <li>4. After sending, click the button below to confirm</li>
+        </ol>
+      </div>
 
-      <button onClick={handleCheckout} disabled={loading} className="w-full bg-stone-900 text-white py-4 rounded-full font-bold text-lg hover:bg-stone-800 transition disabled:opacity-50 flex items-center justify-center gap-2">
-        {loading ? <><Loader2 className="w-5 h-5 animate-spin" />Processing...</> : "Pay with PayPal"}
+      <button onClick={() => { clearCart(); setPaid(true); }} className="w-full bg-stone-900 text-white py-4 rounded-full font-bold text-lg hover:bg-stone-800 transition flex items-center justify-center gap-2">
+        I&apos;ve Completed the Payment
       </button>
 
-      <div className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-xl text-sm text-amber-800">
-        <p className="font-semibold mb-1">Alternative payment method:</p>
-        <p>Send <strong>${total.toFixed(2)} USD</strong> via PayPal to:</p>
-        <p className="font-bold text-lg mt-1">1709658792@qq.com</p>
-        <p className="text-xs mt-2 text-amber-600">Include your order details in the payment note. We&apos;ll confirm via email within 24 hours.</p>
-      </div>
+      <p className="text-xs text-stone-400 text-center mt-3">You&apos;ll receive an order confirmation email within 24 hours.</p>
     </div>
   );
 }
