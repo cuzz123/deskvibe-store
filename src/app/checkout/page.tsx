@@ -1,26 +1,41 @@
 "use client";
 
+import { useState } from "react";
+import Image from "next/image";
 import { useCartStore } from "@/lib/cart";
 import { formatPrice } from "@/lib/utils";
 import Link from "next/link";
-import Image from "next/image";
 import { ShoppingBag, ArrowLeft } from "lucide-react";
 
 export default function CheckoutPage() {
   const items = useCartStore((s) => s.items);
   const subtotal = useCartStore((s) => s.subtotal);
   const clearCart = useCartStore((s) => s.clearCart);
+  const [paid, setPaid] = useState(false);
 
   const shipping = subtotal() >= 75 ? 0 : 9.99;
   const total = subtotal() + shipping;
 
-  if (items.length === 0) {
+  if (items.length === 0 && !paid) {
     return (
       <div className="max-w-lg mx-auto px-6 py-20 text-center">
         <ShoppingBag className="w-12 h-12 mx-auto text-stone-300 mb-4" />
         <h1 className="text-2xl font-bold mb-2">Your cart is empty</h1>
         <p className="text-stone-500 mb-6">Add some desk accessories to get started.</p>
         <Link href="/" className="inline-flex items-center gap-2 text-indigo-600 font-semibold hover:underline"><ArrowLeft className="w-4 h-4" /> Continue Shopping</Link>
+      </div>
+    );
+  }
+
+  if (paid) {
+    return (
+      <div className="max-w-lg mx-auto px-6 py-20 text-center">
+        <div className="w-16 h-16 mx-auto bg-emerald-100 rounded-full flex items-center justify-center mb-4">
+          <svg className="w-8 h-8 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <h1 className="text-2xl font-bold mb-2">Payment Confirmed!</h1>
+        <p className="text-stone-500 mb-6">We will send an order confirmation to your email within 24 hours.</p>
+        <Link href="/" className="inline-flex items-center gap-2 bg-stone-900 text-white px-6 py-3 rounded-full font-semibold hover:bg-stone-800 transition">Continue Shopping</Link>
       </div>
     );
   }
@@ -50,7 +65,6 @@ export default function CheckoutPage() {
         <div className="flex justify-between font-bold text-lg pt-2 border-t border-stone-200"><span>Total</span><span>{formatPrice(total)}</span></div>
       </div>
 
-      {/* PayPal Manual Payment */}
       <div className="bg-indigo-50 border border-indigo-200 rounded-2xl p-6 mb-4">
         <h2 className="font-bold text-lg text-indigo-900 mb-2">Pay with PayPal</h2>
         <ol className="text-sm text-indigo-800 space-y-2 mb-4">
@@ -62,16 +76,15 @@ export default function CheckoutPage() {
           <p className="text-xl font-bold text-stone-900 select-all">1709658792@qq.com</p>
         </div>
         <ol className="text-sm text-indigo-800 space-y-2" start={3}>
-          <li>3. In the payment note, write your order details (product names and quantities)</li>
-          <li>4. After sending, click the button below to confirm</li>
+          <li>3. In the payment note, write your order items</li>
+          <li>4. After sending, click the button below</li>
         </ol>
       </div>
 
-      <button onClick={() => { clearCart(); setPaid(true); }} className="w-full bg-stone-900 text-white py-4 rounded-full font-bold text-lg hover:bg-stone-800 transition flex items-center justify-center gap-2">
-        I&apos;ve Completed the Payment
+      <button onClick={() => { clearCart(); setPaid(true); }} className="w-full bg-stone-900 text-white py-4 rounded-full font-bold text-lg hover:bg-stone-800 transition">
+        I have Completed the Payment
       </button>
-
-      <p className="text-xs text-stone-400 text-center mt-3">You&apos;ll receive an order confirmation email within 24 hours.</p>
+      <p className="text-xs text-stone-400 text-center mt-3">You will receive an order confirmation email within 24 hours.</p>
     </div>
   );
 }
