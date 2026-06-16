@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
 import { OrganizationJsonLd } from "@/components/ui/JsonLd";
 import { Analytics } from "@/components/layout/Analytics";
+import { CookieConsent } from "@/components/layout/CookieConsent";
 
 const figtree = Figtree({ subsets: ["latin"], variable: "--font-figtree" });
 
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <CartDrawer />
           <main className="flex-1">{children}</main>
           <Footer />
+          <CookieConsent />
         </Providers>
       </body>
     </html>

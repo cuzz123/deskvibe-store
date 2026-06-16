@@ -81,7 +81,16 @@ export default function CheckoutPage() {
         </ol>
       </div>
 
-      <button onClick={() => { clearCart(); setPaid(true); }} className="w-full bg-stone-900 text-white py-4 rounded-full font-bold text-lg hover:bg-stone-800 transition">
+      <button onClick={async () => {
+        clearCart();
+        setPaid(true);
+        // Send order notification to seller
+        fetch("/api/order-notify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ items: items.map(i => ({ name: i.product.name, qty: i.quantity })), total }),
+        }).catch(() => {});
+      }} className="w-full bg-stone-900 text-white py-4 rounded-full font-bold text-lg hover:bg-stone-800 transition">
         I have Completed the Payment
       </button>
       <p className="text-xs text-stone-400 text-center mt-3">You will receive an order confirmation email within 24 hours.</p>
