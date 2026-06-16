@@ -8,13 +8,24 @@ export default function ContactPage() {
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const [error, setError] = useState("");
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    // Simulate send (replace with actual API call)
-    await new Promise((r) => setTimeout(r, 1000));
+    setError("");
+    const form = e.target as HTMLFormElement;
+    const data = {
+      name: (form.elements.namedItem("name") as HTMLInputElement)?.value || "",
+      email: (form.elements.namedItem("email") as HTMLInputElement)?.value || "",
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement)?.value || "",
+    };
+    try {
+      const resp = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+      const result = await resp.json();
+      if (result.error) { setError(result.error); } else { setSent(true); }
+    } catch { setError("Network error. Please email support@deskvibe.com directly."); }
     setLoading(false);
-    setSent(true);
   }
 
   if (sent) {
@@ -31,6 +42,8 @@ export default function ContactPage() {
     <div className="max-w-lg mx-auto px-6 py-16">
       <h1 className="text-3xl font-bold tracking-tight mb-2">Contact Us</h1>
       <p className="text-stone-500 mb-8">Questions about a product, your order, or anything else? We&apos;re here.</p>
+
+      {error && <div className="bg-red-50 text-red-600 text-sm p-3 rounded-lg mb-4">{error}</div>}
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
