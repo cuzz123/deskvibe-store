@@ -42,10 +42,11 @@ export default function ProductCard({ product }: { product: Product }) {
         )}
         <button
           onClick={(e) => { e.preventDefault(); handleAdd(); }}
-          className="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-white shadow-md flex items-center justify-center opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 group-focus-within:opacity-100 group-focus-within:translate-x-0 focus-visible:opacity-100 focus-visible:translate-x-0 transition-all hover:bg-stone-900 hover:text-white text-lg"
+          className="md:absolute md:bottom-3 md:right-3 md:w-9 md:h-9 md:rounded-full md:bg-white md:shadow-md md:flex md:items-center md:justify-center md:opacity-0 md:translate-x-2 group-hover:md:opacity-100 group-hover:md:translate-x-0 group-focus-within:md:opacity-100 group-focus-within:md:translate-x-0 focus-visible:md:opacity-100 focus-visible:md:translate-x-0 transition-all hover:bg-stone-900 hover:text-white md:text-lg w-full mt-2 md:mt-0 py-2 md:py-0 rounded-full md:rounded-full bg-stone-100 md:bg-white text-sm md:text-lg"
           aria-label={`Add ${product.name} to cart`}
         >
-          +
+          <span className="md:hidden">Add to Cart — {formatPrice(product.price)}</span>
+          <span className="hidden md:inline">+</span>
         </button>
       </Link>
 

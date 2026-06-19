@@ -131,26 +131,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Reviews */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl lg:text-3xl font-bold tracking-tight mb-2">What Our Customers Say</h2>
-            <p className="text-stone-500">2,400+ reviews from people who upgraded their workspace</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
+      {/* Trust Bar */}
+      <section className="py-14 bg-stone-50">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             {[
-              { text: "The walnut riser completely changed how my desk looks. I used to have cables everywhere and now it's actually clean. My Zoom background has never looked better. Worth every dollar.", author: "Marcus T." },
-              { text: "Bought the magnetic cable clips on a whim. Took me literally 2 minutes to install under my desk. My girlfriend walked in and asked if I bought a new desk. Nope, just 30 bucks of cable management.", author: "Rachel K." },
-              { text: "Got the Complete Makeover Kit as a birthday gift to myself. Everything came in one box, beautifully packaged. My desk went from 'IT department' to 'architectural digest' in an hour.", author: "David L." },
-            ].map((r) => (
-              <div key={r.author} className="bg-white border border-stone-100 rounded-lg p-6">
-                <div className="text-amber-400 text-sm mb-3">★★★★★</div>
-                <p className="text-sm text-stone-500 leading-relaxed italic mb-4">&ldquo;{r.text}&rdquo;</p>
-                <p className="text-xs font-bold">{r.author} <span className="text-stone-400 font-normal">— Verified Buyer</span></p>
+              { n: "75", l: "Products" },
+              { n: "8", l: "Categories" },
+              { n: "60+", l: "Countries" },
+              { n: "30-Day", l: "Trial" },
+            ].map((s) => (
+              <div key={s.l} className="bg-white rounded-xl p-6 border border-stone-200">
+                <div className="text-3xl font-bold text-indigo-600">{s.n}</div>
+                <div className="text-sm text-stone-500 mt-1">{s.l}</div>
               </div>
             ))}
           </div>
+          <p className="text-center text-sm text-stone-400 mt-6">Free shipping over $75 · FSC-certified materials · Carbon-neutral delivery</p>
         </div>
       </section>
 

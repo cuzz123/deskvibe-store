@@ -117,6 +117,18 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         </div>
       </div>
 
+      {/* Lifestyle Image */}
+      <div className="max-w-7xl mx-auto px-6 mt-8">
+        <div className="relative aspect-[21/9] rounded-2xl overflow-hidden bg-stone-100">
+          <Image src="/images/setup-warm.jpg" alt="DeskVibe desk setup" fill className="object-cover" sizes="100vw" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+          <div className="absolute bottom-6 left-6 text-white">
+            <p className="text-sm font-semibold">DeskVibe in the Wild</p>
+            <p className="text-xs opacity-80">Premium materials, real workspaces</p>
+          </div>
+        </div>
+      </div>
+
       {/* Related Products */}
       <section className="max-w-7xl mx-auto px-6 pb-16">
         <h2 className="text-xl font-bold mb-6">You Might Also Like</h2>
