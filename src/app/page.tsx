@@ -32,10 +32,11 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {SETUPS.map((setup) => (
               <div key={setup.name} className="group bg-white rounded-xl overflow-hidden border border-stone-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-200">
-                <div className="aspect-[4/3] relative overflow-hidden">
+                <div className="aspect-[4/3] relative overflow-hidden bg-stone-200">
+                  {/* Warm brand-grade overlay — unifies different lighting across setup photos */}
+                  <div className="absolute inset-0 z-[1] bg-gradient-to-t from-stone-900/55 via-stone-900/8 to-transparent pointer-events-none" />
                   <Image src={setup.img} alt={setup.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width:640px)100vw,(max-width:1024px)50vw,33vw" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
-                  <h3 className="absolute bottom-3 left-4 text-white font-bold text-lg">{setup.name}</h3>
+                  <h3 className="absolute bottom-3 left-4 z-[2] text-white font-bold text-lg">{setup.name}</h3>
                 </div>
                 <div className="p-4 flex items-center gap-2 overflow-x-auto">
                   {setup.products.map((pid) => {
@@ -65,7 +66,11 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
             {CATEGORIES.map((cat) => (
-              <Link key={cat.slug} href={`/collections/${cat.slug}`} className="relative group rounded-lg overflow-hidden aspect-[3/4] flex items-end">
+              <Link key={cat.slug} href={`/collections/${cat.slug}`} className="relative group rounded-lg overflow-hidden aspect-[3/4] flex items-end bg-stone-200">
+                {/* Warm brand-grade overlay — strongest here since category images vary most */}
+                <div className="absolute inset-0 z-[1] bg-gradient-to-t from-stone-900/65 via-stone-900/10 to-transparent pointer-events-none" />
+                {/* Subtle warm tint over entire image */}
+                <div className="absolute inset-0 z-[1] bg-stone-900/[0.06] pointer-events-none" />
                 <Image
                   src={`/images/${cat.imageKey}.jpg`}
                   alt={cat.name}
@@ -73,8 +78,7 @@ export default function Home() {
                   sizes="(max-width:640px) 50vw, 25vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-                <div className="relative z-10 p-5 text-white">
+                <div className="relative z-[2] p-5 text-white">
                   <h3 className="font-bold text-lg">{cat.name}</h3>
                   <span className="text-xs text-white/70 group-hover:text-white/90 transition-colors inline-flex items-center gap-1">
                     Shop Collection <ArrowRight className="w-3 h-3" />
@@ -123,7 +127,7 @@ export default function Home() {
             ].map(({ icon: Icon, title, desc }) => (
               <div key={title} className="flex items-start gap-3">
                 <div className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
-                  <Icon className="w-4.5 h-4.5 text-indigo-400" />
+                  <Icon className="w-4 h-4 text-indigo-400" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-sm text-white mb-0.5">{title}</h4>
@@ -149,8 +153,10 @@ export default function Home() {
             Read Our Full Story <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
-        <div className="bg-stone-200 min-h-[350px] flex items-center justify-center overflow-hidden order-1 lg:order-2 relative">
+        <div className="min-h-[350px] flex items-center justify-center overflow-hidden order-1 lg:order-2 relative bg-stone-200">
           <Image src="/images/story.jpg" alt="DeskVibe design studio in Stockholm" fill className="object-cover" sizes="(max-width:1024px) 100vw, 50vw" />
+          {/* Warm tint to match brand palette */}
+          <div className="absolute inset-0 bg-stone-900/[0.06] pointer-events-none" />
         </div>
       </section>
 
@@ -170,9 +176,11 @@ export default function Home() {
               ["/images/setup-ergo.jpg","Ergonomic"],
               ["/images/setup-bundle.jpg","Full Makeover"],
             ].map(([src, alt]) => (
-              <div key={alt} className="relative aspect-[4/3] rounded-lg overflow-hidden group cursor-pointer">
+              <div key={alt} className="relative aspect-[4/3] rounded-lg overflow-hidden group cursor-pointer bg-stone-200">
+                {/* Subtle warm tint for visual coherence */}
+                <div className="absolute inset-0 z-[1] bg-stone-900/[0.04] pointer-events-none" />
                 <Image src={src} alt={alt} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width:640px) 50vw, (max-width:768px) 33vw, 33vw" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                <div className="absolute inset-0 z-[2] bg-gradient-to-t from-stone-900/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                   <span className="text-white font-semibold text-sm">{alt}</span>
                 </div>
               </div>

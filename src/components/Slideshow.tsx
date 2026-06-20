@@ -58,6 +58,8 @@ export default function Slideshow() {
         </div>
         {/* Visual */}
         <div className="order-1 lg:order-2 bg-stone-200 flex items-center justify-center min-h-[280px] lg:min-h-0 overflow-hidden relative">
+          {/* Warm brand tint — unifies hero images */}
+          <div className="absolute inset-0 z-[1] bg-stone-900/[0.05] pointer-events-none" />
           <Image
             src={`/images/slide-${current}.jpg`}
             alt={slide.title}

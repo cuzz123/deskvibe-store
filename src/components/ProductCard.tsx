@@ -26,7 +26,8 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <div className="group bg-white border border-stone-100 rounded-lg overflow-hidden transition-all hover:shadow-xl hover:-translate-y-1">
-      <Link href={`/products/${product.slug}`} className="block aspect-square relative overflow-hidden bg-stone-100">
+      <Link href={`/products/${product.slug}`} className="block aspect-square relative overflow-hidden bg-stone-100/[0.6]">
+        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-transparent via-transparent to-stone-900/[0.04] pointer-events-none" />
         <Image
           src={product.imageUrl}
           alt={product.name}
@@ -36,13 +37,14 @@ export default function ProductCard({ product }: { product: Product }) {
           onError={(e) => { (e.target as HTMLElement).style.display = "none"; }}
         />
         {product.badge && (
-          <span className={`absolute top-3 left-3 z-10 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded ${product.badgeClass}`}>
+          <span className={`absolute top-3 left-3 z-10 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full ${product.badgeClass}`}>
             {product.badge}
           </span>
         )}
+        {/* Desktop: quick-add button */}
         <button
           onClick={(e) => { e.preventDefault(); handleAdd(); }}
-          className="md:absolute md:bottom-3 md:right-3 md:w-9 md:h-9 md:rounded-full md:bg-white md:shadow-md md:flex md:items-center md:justify-center md:opacity-0 md:translate-x-2 group-hover:md:opacity-100 group-hover:md:translate-x-0 group-focus-within:md:opacity-100 group-focus-within:md:translate-x-0 focus-visible:md:opacity-100 focus-visible:md:translate-x-0 transition-all hover:bg-stone-900 hover:text-white md:text-lg w-full mt-2 md:mt-0 py-2 md:py-0 rounded-full md:rounded-full bg-stone-100 md:bg-white text-sm md:text-lg"
+          className="md:absolute md:bottom-3 md:right-3 md:z-10 md:w-9 md:h-9 md:rounded-full md:bg-white md:shadow-md md:flex md:items-center md:justify-center md:opacity-0 md:translate-x-2 group-hover:md:opacity-100 group-hover:md:translate-x-0 group-focus-within:md:opacity-100 group-focus-within:md:translate-x-0 focus-visible:md:opacity-100 focus-visible:md:translate-x-0 transition-all hover:bg-stone-900 hover:text-white md:text-lg w-full mt-2 md:mt-0 py-2 md:py-0 rounded-full md:rounded-full bg-stone-100 md:bg-white text-sm md:text-lg"
           aria-label={`Add ${product.name} to cart`}
         >
           <span className="md:hidden">Add to Cart — {formatPrice(product.price)}</span>
@@ -60,7 +62,7 @@ export default function ProductCard({ product }: { product: Product }) {
           <div>
             <span className="font-bold text-stone-900">{formatPrice(product.price)}</span>
             {product.compareAt && (
-              <span className="text-xs text-stone-400 line-through ml-1.5">{formatPrice(product.compareAt)}</span>
+              <span className="text-xs text-stone-500 line-through ml-1.5">{formatPrice(product.compareAt)}</span>
             )}
           </div>
           <StarRating rating={product.rating} size="sm" />
