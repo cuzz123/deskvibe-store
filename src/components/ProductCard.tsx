@@ -26,7 +26,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <div className="group bg-white border border-stone-100 rounded-lg overflow-hidden transition-all hover:shadow-xl hover:-translate-y-1">
-      <Link href={`/products/${product.slug}`} className="block aspect-square relative overflow-hidden bg-stone-100/[0.6]">
+      <Link href={`/products/${product.slug}`} className="block aspect-square relative overflow-hidden bg-stone-100">
         <div className="absolute inset-0 z-[1] bg-gradient-to-b from-transparent via-transparent to-stone-900/[0.04] pointer-events-none" />
         <Image
           src={product.imageUrl}
