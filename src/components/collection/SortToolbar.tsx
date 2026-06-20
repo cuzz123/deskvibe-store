@@ -20,11 +20,12 @@ export function SortToolbar({ value, onChange }: Props) {
 
   return (
     <div className="flex items-center gap-2 mb-6">
-      <ArrowUpDown className="w-4 h-4 text-stone-400" />
+      <ArrowUpDown className="w-4 h-4 text-stone-500" aria-hidden="true" />
       <select
         value={value}
         onChange={(e) => onChange(e.target.value as SortKey)}
         className="text-sm border border-stone-200 rounded-lg px-3 py-2 outline-none focus:border-indigo-500 bg-white"
+        aria-label="Sort products"
       >
         {options.map((o) => (
           <option key={o.key} value={o.key}>{o.label}</option>

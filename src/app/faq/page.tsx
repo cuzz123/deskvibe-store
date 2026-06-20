@@ -11,7 +11,7 @@ const faqs = [
   { q: "How do I clean my desk mat?", a: "Our linen desk mats have a water-resistant coating. Wipe with a damp cloth and mild soap. Do not machine wash or bleach." },
   { q: "Does the monitor light bar fit curved monitors?", a: "Yes — the clamp fits monitors up to 1.2 inches thick, including most curved displays. The asymmetric light design prevents glare on any screen type." },
   { q: "Can I buy replacement cable clips?", a: "The Magnetic Cable Organizer 8-piece set includes spare clips. Additional sets are available for purchase separately." },
-  { q: "What payment methods do you accept?", a: "We accept Visa, Mastercard, American Express, Apple Pay, Google Pay, and PayPal. All payments are processed securely via Stripe." },
+  { q: "What payment methods do you accept?", a: "We accept PayPal. All major credit and debit cards are supported through PayPal's checkout. Your payment information is always encrypted and secure." },
 ];
 
 export default function FAQPage() {
@@ -24,14 +24,14 @@ export default function FAQPage() {
           <details key={faq.q} className="group border-b border-stone-100">
             <summary className="font-semibold text-sm cursor-pointer list-none flex items-center justify-between py-4 hover:text-stone-900 text-stone-700">
               {faq.q}
-              <span className="text-stone-400 group-open:rotate-45 transition-transform text-lg ml-4 flex-shrink-0">+</span>
+              <span className="text-stone-500 group-open:rotate-45 transition-transform text-lg ml-4 flex-shrink-0">+</span>
             </summary>
             <p className="text-sm text-stone-500 pb-4 leading-relaxed">{faq.a}</p>
           </details>
         ))}
       </div>
       <div className="mt-12 text-center">
-        <p className="text-sm text-stone-400">Still have questions? <Link href="/contact" className="text-indigo-600 font-semibold hover:underline">Contact us</Link></p>
+        <p className="text-sm text-stone-500">Still have questions? <Link href="/contact" className="text-indigo-600 font-semibold hover:underline">Contact us</Link></p>
       </div>
     </div>
   );

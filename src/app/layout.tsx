@@ -5,6 +5,7 @@ import { Providers } from "./providers";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { OrganizationJsonLd } from "@/components/ui/JsonLd";
 import { Analytics } from "@/components/layout/Analytics";
 import { CookieConsent } from "@/components/layout/CookieConsent";
@@ -30,15 +31,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="google-site-verification" content="uBe2lk1CCRJxdUU4b1HoJkR9KbnKodSifkNbU1XtLgs" />
       </head>
       <body className="min-h-full flex flex-col font-sans bg-white text-stone-900">
-        <Providers>
-          <OrganizationJsonLd />
-          <Analytics />
-          <Header />
-          <CartDrawer />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <CookieConsent />
-        </Providers>
+        <ErrorBoundary>
+          <Providers>
+            <OrganizationJsonLd />
+            <Analytics />
+            <Header />
+            <CartDrawer />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <CookieConsent />
+          </Providers>
+        </ErrorBoundary>
       </body>
     </html>
   );

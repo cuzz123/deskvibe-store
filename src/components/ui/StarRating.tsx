@@ -19,22 +19,23 @@ export function StarRating({ rating, size = "md", showValue, count, linkTo }: St
       key={star}
       className={`${iconSize} ${
         star <= Math.round(rating)
-          ? "text-yellow-400 fill-yellow-400"
-          : "text-gray-500 fill-gray-500"
+          ? "text-amber-500 fill-amber-500"
+          : "text-stone-300 fill-stone-300"
       }`}
+      aria-hidden="true"
     />
   ));
 
   if (showValue) {
     return (
       <div className="flex items-center gap-2">
-        <span className={`${size === "lg" ? "text-5xl" : "text-3xl"} font-bold text-[var(--text)]`}>
+        <span className={`${size === "lg" ? "text-5xl" : "text-3xl"} font-bold text-stone-900`}>
           {value.toFixed(1)}
         </span>
         <div>
           <div className="flex gap-0.5 mb-1">{stars}</div>
           {count !== undefined && (
-            <span className="text-sm text-[var(--text-muted)]">
+            <span className="text-sm text-stone-500">
               Based on {count} review{count !== 1 ? "s" : ""}
             </span>
           )}
@@ -54,7 +55,7 @@ export function StarRating({ rating, size = "md", showValue, count, linkTo }: St
       <a href={linkTo} className="inline-flex items-center gap-2 hover:underline">
         {starsEl}
         {count !== undefined && (
-          <span className="text-sm text-[var(--text-muted)]">{count} Reviews</span>
+          <span className="text-sm text-stone-500">{count} Reviews</span>
         )}
       </a>
     );

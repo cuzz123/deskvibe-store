@@ -48,13 +48,13 @@ export function ProductActions({
 
       {/* Quantity */}
       <div className="mb-5">
-        <p className="text-[13px] font-semibold uppercase tracking-wider text-stone-900 mb-2">Quantity</p>
+        <p className="text-xs font-semibold uppercase tracking-wider text-stone-500 mb-2">Quantity</p>
         <div className="flex items-center border border-stone-200 rounded-full w-fit">
-          <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="w-10 h-10 flex items-center justify-center hover:bg-stone-100 rounded-l-full">
+          <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="w-10 h-10 flex items-center justify-center hover:bg-stone-100 rounded-l-full" aria-label="Decrease quantity">
             <Minus className="w-3.5 h-3.5" />
           </button>
           <span className="w-10 text-center text-sm font-semibold">{quantity}</span>
-          <button onClick={() => setQuantity(Math.min(99, quantity + 1))} className="w-10 h-10 flex items-center justify-center hover:bg-stone-100 rounded-r-full">
+          <button onClick={() => setQuantity(Math.min(99, quantity + 1))} className="w-10 h-10 flex items-center justify-center hover:bg-stone-100 rounded-r-full" aria-label="Increase quantity">
             <Plus className="w-3.5 h-3.5" />
           </button>
         </div>
