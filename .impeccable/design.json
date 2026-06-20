@@ -1,0 +1,276 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-20T15:30:00Z",
+  "title": "Design System: DeskVibe",
+  "extensions": {
+    "colorMeta": {
+      "shop-black": {
+        "role": "primary",
+        "displayName": "Shop Black",
+        "canonical": "oklch(22% 0.005 60)",
+        "tonalRamp": [
+          "oklch(15% 0.005 60)",
+          "oklch(22% 0.005 60)",
+          "oklch(30% 0.005 60)",
+          "oklch(44% 0.005 60)",
+          "oklch(54% 0.005 60)",
+          "oklch(67% 0.005 60)",
+          "oklch(86% 0.005 60)",
+          "oklch(96% 0.005 60)"
+        ]
+      },
+      "shop-black-hover": {
+        "role": "primary",
+        "displayName": "Shop Black Hover",
+        "canonical": "oklch(30% 0.005 60)",
+        "tonalRamp": []
+      },
+      "indigo-ink": {
+        "role": "secondary",
+        "displayName": "Indigo Ink",
+        "canonical": "oklch(52% 0.22 275)",
+        "tonalRamp": [
+          "oklch(30% 0.12 275)",
+          "oklch(37% 0.16 275)",
+          "oklch(46% 0.20 275)",
+          "oklch(52% 0.22 275)",
+          "oklch(62% 0.18 275)",
+          "oklch(72% 0.14 275)",
+          "oklch(85% 0.06 275)",
+          "oklch(95% 0.02 275)"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "canonical": "oklch(100% 0 0)",
+        "tonalRamp": []
+      },
+      "warm-paper": {
+        "role": "neutral",
+        "displayName": "Warm Paper",
+        "canonical": "oklch(96% 0.005 60)",
+        "tonalRamp": []
+      },
+      "border-light": {
+        "role": "neutral",
+        "displayName": "Border Light",
+        "canonical": "oklch(93% 0.005 60)",
+        "tonalRamp": []
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Border",
+        "canonical": "oklch(87% 0.005 60)",
+        "tonalRamp": []
+      },
+      "text-secondary": {
+        "role": "neutral",
+        "displayName": "Text Secondary",
+        "canonical": "oklch(44% 0.005 60)",
+        "tonalRamp": []
+      },
+      "text-muted": {
+        "role": "neutral",
+        "displayName": "Text Muted",
+        "canonical": "oklch(54% 0.005 60)",
+        "tonalRamp": []
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero headlines and slideshow titles. Used at most once per page."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headings. Used 3–5 times per page."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Product names, card headings, detail labels. The workhorse of the product grid."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All running text. Capped at 65–75ch in prose blocks."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Product category eyebrows and badge text. The only all-caps element in the system."
+      }
+    },
+    "shadows": [
+      {
+        "name": "ambient-hover",
+        "value": "0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)",
+        "purpose": "Product card hover state. Paired with -4px Y translation."
+      },
+      {
+        "name": "structural-hover",
+        "value": "0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)",
+        "purpose": "Setup card hover and dropdown panels."
+      },
+      {
+        "name": "floating-control",
+        "value": "0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1)",
+        "purpose": "Carousel arrows, mobile cart FAB, fixed action buttons."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-color",
+        "value": "150ms ease",
+        "purpose": "Color and background-color transitions on buttons, links, and interactive elements."
+      },
+      {
+        "name": "ease-lift",
+        "value": "200ms ease-out",
+        "purpose": "Card hover lift (translateY + shadow). Pairs with image scale on 500ms delay."
+      },
+      {
+        "name": "ease-image",
+        "value": "500ms ease-out",
+        "purpose": "Image scale on card hover (105%). Disabled in reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main CTA. Shop Black background, white text, full-round or rounded-md depending on context.",
+      "html": "<button class=\"ds-btn-primary\">Shop All Products</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; height: 3rem; padding: 0 2rem; background: var(--primary); color: #fff; font-family: Figtree, ui-sans-serif, system-ui, sans-serif; font-size: 0.938rem; font-weight: 600; line-height: 1; border: none; border-radius: 9999px; cursor: pointer; transition: background-color 150ms ease; } .ds-btn-primary:hover { background: var(--primary-hover); } .ds-btn-primary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary action. Transparent with Shop Black text and Border stroke. Hover fills Border Light.",
+      "html": "<button class=\"ds-btn-outline\">Learn More</button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; height: 2.75rem; padding: 0 1.25rem; background: transparent; color: var(--text); font-family: Figtree, ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 500; line-height: 1; border: 1px solid var(--border); border-radius: var(--radius-md); cursor: pointer; transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease; } .ds-btn-outline:hover { background: var(--border-light); border-color: var(--text-muted); } .ds-btn-outline:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Tertiary inline action. No border, subtle color. Hover reveals background and shifts toward Shop Black.",
+      "html": "<button class=\"ds-btn-ghost\">View Details</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; height: 2.5rem; padding: 0 0.75rem; background: transparent; color: var(--text-secondary); font-family: Figtree, ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 500; line-height: 1; border: 1px solid transparent; border-radius: var(--radius-sm); cursor: pointer; transition: background-color 150ms ease, color 150ms ease; } .ds-btn-ghost:hover { background: var(--border-light); color: var(--text); } .ds-btn-ghost:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }"
+    },
+    {
+      "name": "Product Card",
+      "kind": "card",
+      "refersTo": "card-product",
+      "description": "Standard product grid card with image, category eyebrow, name, description, price, and star rating.",
+      "html": "<div class=\"ds-card-product\"><div class=\"ds-card-image\"><span class=\"ds-card-badge\">Bestseller</span><button class=\"ds-card-add\">+</button></div><div class=\"ds-card-body\"><span class=\"ds-card-eyebrow\">Monitor Stand</span><h3 class=\"ds-card-title\">Walnut Monitor Riser</h3><p class=\"ds-card-desc\">Solid FSC-certified American walnut. Hidden storage drawer.</p><div class=\"ds-card-footer\"><span class=\"ds-card-price\">$49.99</span><span class=\"ds-card-compare\">$69.99</span></div></div></div>",
+      "css": ".ds-card-product { background: #fff; border: 1px solid var(--border-light); border-radius: var(--radius-sm); overflow: hidden; transition: box-shadow 200ms ease-out, transform 200ms ease-out; } .ds-card-product:hover { box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1); transform: translateY(-4px); } .ds-card-image { aspect-ratio: 1; background: #f5f5f4; position: relative; overflow: hidden; } .ds-card-badge { position: absolute; top: 12px; left: 12px; z-index: 1; font-family: Figtree, ui-sans-serif, system-ui, sans-serif; font-size: 0.625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 4px 10px; border-radius: 9999px; background: var(--primary); color: #fff; } .ds-card-add { position: absolute; bottom: 12px; right: 12px; width: 36px; height: 36px; border-radius: 50%; background: #fff; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; font-size: 1.25rem; color: var(--primary); opacity: 0; transform: translateX(8px); transition: opacity 200ms ease, transform 200ms ease, background-color 150ms ease, color 150ms ease; } .ds-card-product:hover .ds-card-add { opacity: 1; transform: translateX(0); } .ds-card-add:hover { background: var(--primary); color: #fff; } .ds-card-body { padding: 1rem; } .ds-card-eyebrow { display: block; font-family: Figtree, ui-sans-serif, system-ui, sans-serif; font-size: 0.625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); margin-bottom: 4px; } .ds-card-title { font-family: Figtree, ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 600; color: var(--primary); margin: 0 0 4px 0; transition: color 150ms ease; } .ds-card-product:hover .ds-card-title { color: var(--accent); } .ds-card-desc { font-family: Figtree, ui-sans-serif, system-ui, sans-serif; font-size: 0.75rem; line-height: 1.625; color: var(--text-muted); margin: 0 0 12px 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; } .ds-card-footer { display: flex; align-items: center; justify-content: space-between; } .ds-card-price { font-family: Figtree, ui-sans-serif, system-ui, sans-serif; font-size: 0.938rem; font-weight: 700; color: var(--primary); } .ds-card-compare { font-family: Figtree, ui-sans-serif, system-ui, sans-serif; font-size: 0.75rem; color: var(--text-muted); text-decoration: line-through; margin-left: 6px; } @media (prefers-reduced-motion: reduce) { .ds-card-product:hover { transform: none; } .ds-card-add { transition: opacity 200ms ease; } }"
+    },
+    {
+      "name": "Category Card",
+      "kind": "custom",
+      "refersTo": "card-category",
+      "description": "Signature homepage category card with gradient overlay and text on image. Used in the 4-column category grid.",
+      "html": "<div class=\"ds-card-category\"><div class=\"ds-cat-overlay\"></div><div class=\"ds-cat-text\"><h3 class=\"ds-cat-title\">Monitor Stands</h3><span class=\"ds-cat-link\">Shop Collection</span></div></div>",
+      "css": ".ds-card-category { position: relative; border-radius: var(--radius-sm); overflow: hidden; aspect-ratio: 4/5; background: #d6d3d1; cursor: pointer; } .ds-cat-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.6), transparent); } .ds-card-category:hover .ds-cat-overlay { background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); transition: background 300ms ease; } .ds-cat-text { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.25rem; z-index: 1; } .ds-cat-title { font-family: Figtree, ui-sans-serif, system-ui, sans-serif; font-size: 1.125rem; font-weight: 700; color: #fff; margin: 0 0 4px 0; } .ds-cat-link { font-family: Figtree, ui-sans-serif, system-ui, sans-serif; font-size: 0.75rem; color: rgba(255,255,255,0.8); }"
+    },
+    {
+      "name": "Navigation Link",
+      "kind": "nav",
+      "refersTo": "nav-desktop-link",
+      "description": "Desktop header navigation link. Text Muted at rest, color-shifts to Shop Black on hover.",
+      "html": "<a class=\"ds-nav-link\" href=\"#\">Monitor Stands</a>",
+      "css": ".ds-nav-link { font-family: Figtree, ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: color 150ms ease; } .ds-nav-link:hover { color: var(--text); }"
+    },
+    {
+      "name": "Input Field",
+      "kind": "input",
+      "refersTo": "input-text",
+      "description": "Standard text input with Border stroke, Border Light fill, and Indigo Ink focus ring.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Search products…\" />",
+      "css": ".ds-input { width: 100%; height: 2.75rem; padding: 0 0.75rem; background: var(--border-light); border: 1px solid var(--border); border-radius: var(--radius-sm); font-family: Figtree, ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; color: var(--text); transition: border-color 150ms ease, box-shadow 150ms ease; } .ds-input::placeholder { color: var(--text-muted); } .ds-input:focus { outline: none; border-color: transparent; box-shadow: 0 0 0 2px var(--accent); } .ds-input:focus-visible { outline: none; border-color: transparent; box-shadow: 0 0 0 2px var(--accent); }"
+    },
+    {
+      "name": "Product Badge",
+      "kind": "chip",
+      "refersTo": "chip-badge",
+      "description": "Product card overlay badge. Variants: dark (Bestseller/Best Value), indigo (Popular/New), emerald (Eco/Value), red (Sale).",
+      "html": "<span class=\"ds-badge ds-badge--bestseller\">Bestseller</span>",
+      "css": ".ds-badge { display: inline-flex; align-items: center; font-family: Figtree, ui-sans-serif, system-ui, sans-serif; font-size: 0.625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 4px 10px; border-radius: 9999px; line-height: 1; } .ds-badge--bestseller { background: var(--primary); color: #fff; } .ds-badge--popular { background: var(--accent); color: #fff; } .ds-badge--eco { background: #059669; color: #fff; } .ds-badge--sale { background: #dc2626; color: #fff; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Studio Gallery",
+    "overview": "DeskVibe is a design exhibition, not a warehouse. Every product earns its spot on the page. The interface treats products with the curatorial care of a gallery — generous white space, considered photography, and typographic restraint that lets the materials speak. The system is warm without being soft, confident without being loud, and premium without being precious.\n\nThe palette anchors in Shop Black (#1c1917) — a warm near-black with wood-shop character — supported by a tight stone neutral scale and a single Indigo Ink accent (#6366f1) used sparingly for interactive signifiers. Figtree runs across every surface: a single sans-serif family at multiple weights, chosen for its clean geometry and warm, humanist details. The system is fundamentally flat at rest; depth arrives only as state (hover lift on cards, focus rings on inputs). Motion is brief and material — quick fades, gentle lifts — never choreographed.\n\nThis system explicitly rejects three aesthetics from PRODUCT.md: marketplace density (crowded grids, competing badges), cold SaaS blue-grey (sterile, abstract, no tactile warmth), and luxury-fashion pretension (black backgrounds, dramatic type, impractical presentation). If a page feels like an Amazon category grid, it's wrong. If it feels like a startup landing page, it's wrong. If it feels like a fashion house, it's wrong. It should feel like walking into a well-lit design studio where every object on display was chosen.",
+    "keyCharacteristics": [
+      "Single sans-serif family (Figtree) across all surfaces; weight and size carry the hierarchy",
+      "Restrained palette: warm black primary, single indigo accent, white + stone neutrals",
+      "Flat at rest; depth on hover via shadow and micro-lift",
+      "Cards are used for products and editorial groupings only — never nested, never decorative",
+      "Curatorial spacing: generous but not wasteful. Section rhythm varies deliberately",
+      "Typography is tight-tracked on headings, open on body; no wide tracking, no all-caps decoration except product category labels"
+    ],
+    "rules": [
+      {
+        "name": "The 10% Rule",
+        "body": "Indigo Ink appears on ≤10% of any given screen. It's a signal, not a decoration. If more than two non-link elements use it in the same viewport, it's over-deployed.",
+        "section": "colors"
+      },
+      {
+        "name": "The Stone Bridge Rule",
+        "body": "All neutrals between White and Shop Black stay within the stone hue (30–60° in OKLCH). Never introduce cool grays (slate, blue-gray) or warm creams (sand, beige) — the neutral ramp must feel like it belongs to the same material as Shop Black.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Voice Rule",
+        "body": "Figtree or nothing. Never introduce a second typeface. Hierarchy is weight + size + color, not font-switching.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tracking Floor Rule",
+        "body": "Heading tracking never drops below -0.04em. At tighter values, Figtree's letterforms begin to touch. If a heading needs more presence, increase weight or size before tightening tracking further.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "Surfaces are flat at rest. Shadows appear only as a response to state (hover, elevation, focus). No card should cast a shadow unless the user is interacting with it.",
+        "section": "elevation"
+      },
+      {
+        "name": "The One-Pixel Border Rule",
+        "body": "Depth between adjacent surfaces at rest is conveyed through border and background color, not shadow. A 1px border on Warm Paper is the maximum structural separator. No decorative side-stripe borders.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use Figtree exclusively — weight and size carry the hierarchy, not font-switching.",
+      "Do use Shop Black (#1c1917) as the single primary ink. Never pure #000.",
+      "Do limit Indigo Ink to ≤10% of any screen. It's a signal, not a decoration.",
+      "Do keep cards flat at rest. Shadows only on hover.",
+      "Do alternate white and Warm Paper sections for page rhythm — but never more than 3 consecutive tinted sections.",
+      "Do cap body line length at 65–75ch in prose blocks.",
+      "Do use text-wrap: balance on h1–h3 headings; text-wrap: pretty on body text.",
+      "Do let product photography lead. Images are large, considered, and the primary visual draw.",
+      "Do respect reduced motion: replace auto-advancing carousels with static slides, disable hover scale transforms."
+    ],
+    "donts": [
+      "Don't introduce a second typeface. No serif pairings, no mono accents. Figtree is the system.",
+      "Don't use marketplace density patterns — crowded grids, stacked badges, competing CTAs, information overload. DeskVibe is a studio, not a warehouse.",
+      "Don't drift into cold SaaS aesthetic — sterile blue-white-grey palettes, abstract illustrations, generic gradient backdrops.",
+      "Don't adopt luxury-fashion pretension — black backgrounds, dramatic serif typography, aspirational-but-impractical presentation.",
+      "Don't use gradient text (background-clip: text). Solid Shop Black or Indigo Ink only.",
+      "Don't use side-stripe borders (border-left or border-right > 1px) as colored accents.",
+      "Don't set heading letter-spacing below -0.04em. Figtree letterforms will touch.",
+      "Don't nest cards inside cards.",
+      "Don't use shadows at rest. If a card has a box-shadow without hover/focus, it's wrong.",
+      "Don't place an eyebrow above every section heading."
+    ]
+  }
+}

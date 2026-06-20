@@ -55,7 +55,7 @@ export default function ProductCard({ product }: { product: Product }) {
         <Link href={`/products/${product.slug}`}>
           <h3 className="text-sm font-semibold mt-1 mb-1 text-stone-900 hover:text-indigo-600 transition-colors">{product.name}</h3>
         </Link>
-        <p className="text-xs text-stone-400 mb-3 leading-relaxed line-clamp-2">{product.description}</p>
+        <p className="text-xs text-stone-500 mb-3 leading-relaxed line-clamp-2">{product.description}</p>
         <div className="flex items-center justify-between">
           <div>
             <span className="font-bold text-stone-900">{formatPrice(product.price)}</span>

@@ -29,7 +29,7 @@ export default function Newsletter() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="bg-stone-900 rounded-2xl py-14 px-6 text-center text-white">
           <h2 className="text-2xl lg:text-3xl font-bold mb-2">Get 10% Off Your First Order</h2>
-          <p className="text-stone-400 mb-6">Desk inspiration, product drops, and exclusive deals — no spam, ever.</p>
+          <p className="text-stone-300 mb-6">Desk inspiration, product drops, and exclusive deals — no spam, ever.</p>
 
           {status === "done" ? (
             <div className="flex items-center justify-center gap-2 text-emerald-400 font-semibold">

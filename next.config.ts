@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
           { key: "X-XSS-Protection", value: "1; mode=block" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
-          { key: "Content-Security-Policy", value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.paypal.com https://www.googletagmanager.com; img-src 'self' data: https:; frame-src https://www.paypal.com; connect-src 'self' https://api.17track.net https://www.google-analytics.com https://apihub.agnes-ai.com;" },
+          { key: "Content-Security-Policy", value: `default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.paypal.com https://www.googletagmanager.com${process.env.NODE_ENV === "development" ? " http://localhost:8400" : ""}; img-src 'self' data: https:; frame-src https://www.paypal.com; connect-src 'self' https://api.17track.net https://www.google-analytics.com https://apihub.agnes-ai.com${process.env.NODE_ENV === "development" ? " http://localhost:8400" : ""};` },
         ],
       },
     ];
