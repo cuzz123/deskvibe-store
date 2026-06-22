@@ -4,6 +4,8 @@ import { PRODUCTS, CATEGORIES } from "@/lib/products";
 import Image from "next/image";
 import Link from "next/link";
 import { Shield, Truck, Leaf, RotateCcw, ArrowRight } from "lucide-react";
+import { Suspense } from "react";
+import { ProductGridSkeleton } from "@/components/ProductGridSkeleton";
 
 const SETUPS = [
   { name:"Warm Minimal", img:"/images/setup-warm.jpg", products:[1,8,15,13] },
@@ -131,11 +133,13 @@ export default function Home() {
               View All <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {PRODUCTS.slice(0, 8).map((p) => (
-              <ProductCard key={p.id} product={p} />
-            ))}
-          </div>
+          <Suspense fallback={<ProductGridSkeleton />}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {PRODUCTS.slice(0, 8).map((p) => (
+                <ProductCard key={p.id} product={p} />
+              ))}
+            </div>
+          </Suspense>
           <div className="mt-8 text-center sm:hidden">
             <Link href="/collections/monitor-stands" className="inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-600">
               View All 75 Products <ArrowRight className="w-4 h-4" />

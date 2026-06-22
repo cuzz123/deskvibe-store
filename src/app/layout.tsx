@@ -29,8 +29,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${figtree.variable} h-full antialiased`}>
       <head>
         <meta name="google-site-verification" content="uBe2lk1CCRJxdUU4b1HoJkR9KbnKodSifkNbU1XtLgs" />
+        <meta name="theme-color" content="#ffffff" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var t=localStorage.getItem("deskvibe-theme");if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)){document.documentElement.setAttribute("data-theme","dark");}})();`,
+          }}
+        />
       </head>
-      <body className="min-h-full flex flex-col font-sans bg-white text-stone-900">
+      <body className="min-h-full flex flex-col font-sans bg-[var(--bg)] text-[var(--text)]">
         <ErrorBoundary>
           <Providers>
             <OrganizationJsonLd />
