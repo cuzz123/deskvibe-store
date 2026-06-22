@@ -17,7 +17,7 @@ async function getAccessToken() {
 }
 
 export async function POST(request: NextRequest) {
-  const rateLimitResponse = applyRateLimit(request, { windowMs: 60_000, maxRequests: 10 });
+  const rateLimitResponse = await applyRateLimit(request, { windowMs: 60_000, maxRequests: 10 });
   if (rateLimitResponse) return rateLimitResponse;
 
   if (!PAYPAL_CLIENT_ID || !PAYPAL_SECRET) {
