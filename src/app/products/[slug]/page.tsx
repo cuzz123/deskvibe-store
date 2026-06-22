@@ -3,6 +3,7 @@ import { PRODUCTS } from "@/lib/products";
 import { ProductJsonLd } from "@/components/ui/JsonLd";
 import { StarRating } from "@/components/ui/StarRating";
 import { ProductActions } from "@/components/product/ProductActions";
+import { StickyAddToCart } from "@/components/product/StickyAddToCart";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -73,9 +74,18 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
       {/* Product Detail */}
       <div className="max-w-7xl mx-auto px-6 py-8 grid grid-cols-1 lg:grid-cols-2 gap-10">
-        {/* Gallery */}
-        <div className="aspect-square rounded-xl overflow-hidden bg-stone-100 relative">
-          <Image src={product.imageUrl} alt={product.name} fill sizes="(max-width:1024px) 100vw, 50vw" className="object-cover" priority />
+        {/* Gallery + mobile sentinel */}
+        <div>
+          <div className="aspect-square rounded-xl overflow-hidden bg-stone-100 relative">
+            <Image src={product.imageUrl} alt={product.name} fill sizes="(max-width:1024px) 100vw, 50vw" className="object-cover" priority />
+          </div>
+          <StickyAddToCart
+            productId={product.id}
+            productName={product.name}
+            productSlug={product.slug}
+            image={product.imageUrl}
+            price={product.price}
+          />
         </div>
 
         {/* Info */}

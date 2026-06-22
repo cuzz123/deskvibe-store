@@ -1,4 +1,3 @@
-import Slideshow from "@/components/Slideshow";
 import ProductCard from "@/components/ProductCard";
 import Newsletter from "@/components/Newsletter";
 import { PRODUCTS, CATEGORIES } from "@/lib/products";
@@ -18,7 +17,37 @@ const SETUPS = [
 export default function Home() {
   return (
     <>
-      <Slideshow />
+      {/* ── Hero ── */}
+      <section className="relative min-h-[480px] max-h-[560px] overflow-hidden bg-stone-900 grid grid-cols-1 lg:grid-cols-2">
+        {/* Content */}
+        <div className="flex flex-col justify-center px-8 lg:px-14 py-12 order-2 lg:order-1 z-10">
+          <h1 className="text-3xl lg:text-[2.5rem] lg:leading-[1.1] font-bold tracking-tight text-white mb-4 text-wrap balance">
+            Transform Your Desk
+          </h1>
+          <p className="text-stone-300 leading-relaxed mb-6 max-w-md">
+            Premium materials, timeless design, and honest prices for your perfect workspace.
+          </p>
+          <Link
+            href="/collections"
+            className="inline-flex items-center gap-2 bg-white text-stone-900 px-8 py-3.5 rounded-full font-semibold text-sm hover:bg-stone-100 transition-colors duration-150 w-fit"
+          >
+            Shop the Collection
+            <span className="text-lg leading-none">→</span>
+          </Link>
+        </div>
+        {/* Image */}
+        <div className="order-1 lg:order-2 relative min-h-[280px] lg:min-h-0">
+          <Image
+            src="/images/product-1.jpg"
+            alt="Premium desk setup with walnut monitor riser"
+            fill
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-stone-900/70 via-stone-900/30 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-stone-900/20 lg:to-stone-900/70" />
+        </div>
+      </section>
 
       {/* ── Shop the Look ── */}
       <section className="py-16 bg-stone-50">

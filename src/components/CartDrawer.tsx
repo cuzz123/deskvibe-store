@@ -131,9 +131,40 @@ export default function CartDrawer() {
               <span>Subtotal</span>
               <span>{formatPrice(subtotal())}</span>
             </div>
-            <p className="text-xs text-stone-500 mb-3">
-              {subtotal() >= 75 ? "✓ Free Shipping!" : `Add ${formatPrice(75 - subtotal())} for free shipping`}
-            </p>
+
+            {/* ── Free Shipping Progress Bar ── */}
+            {(() => {
+              const THRESHOLD = 75;
+              const current = subtotal();
+              const progress = Math.min(current / THRESHOLD * 100, 100);
+              const remaining = THRESHOLD - current;
+              const unlocked = current >= THRESHOLD;
+
+              return (
+                <div className="mb-4">
+                  {/* Bar track */}
+                  <div className="w-full h-2 bg-stone-200 rounded-full overflow-hidden mb-1.5">
+                    <div
+                      className={`h-full rounded-full transition-all duration-500 ease-out ${
+                        unlocked
+                          ? "bg-emerald-500"
+                          : progress >= 65
+                          ? "bg-indigo-500"
+                          : "bg-stone-400"
+                      }`}
+                      style={{ width: `${progress}%` }}
+                    />
+                  </div>
+                  {/* Label */}
+                  <p className={`text-xs font-medium transition-colors duration-300 ${unlocked ? "text-emerald-600" : "text-stone-500"}`}>
+                    {unlocked
+                      ? "Free shipping unlocked!"
+                      : `${formatPrice(remaining)} away from free shipping`}
+                  </p>
+                </div>
+              );
+            })()}
+
             <Link
               href="/checkout"
               onClick={closeCart}
